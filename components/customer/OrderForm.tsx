@@ -545,9 +545,9 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-500">হোম ডেলিভারি ফি:</span>
-                  <strong className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 text-[11px]">
-                    ফ্রি হোম ডেলিভারি
+                  <span className="text-gray-500">হোম ডেলিভারি চার্জ:</span>
+                  <strong className="text-emerald-800 font-bold bg-gray-100 px-2.5 py-0.5 rounded border border-gray-200 text-[11px]">
+                    স্বল্প সার্ভিস চার্জ (কলের মাধ্যমে কনফার্ম)
                   </strong>
                 </div>
 

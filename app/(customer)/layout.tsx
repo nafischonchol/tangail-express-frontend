@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { CartProvider } from "@/context/CartContext";
 import CartDrawer from "@/components/CartDrawer";
 import { getPublicStoreSetup } from "@/lib/api/storeSetup";
@@ -17,13 +17,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const playfairDisplay = Playfair_Display({
-  variable: "--font-serif",
-  subsets: ["latin"],
-});
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mohimaa.com";
-const defaultOgImage = `${siteUrl}/images/hero_banner_1.png`;
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tangailexpress.com";
+const defaultOgImage = `${siteUrl}/logo.png`;
 
 export async function generateMetadata(): Promise<Metadata> {
   const [storeRes, seoRes] = await Promise.all([
@@ -33,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const storeSetup = storeRes.success ? storeRes.resources : null;
   const seo = seoRes.success ? seoRes.resources : null;
-  const storeName = storeSetup?.store_name || "Mohima Premium Beauty";
+  const storeName = storeSetup?.store_name || "Tangail Express | টাঙ্গাইল এক্সপ্রেস";
 
   const otherVerification: Record<string, string> = {};
   if (seo?.bing_webmaster_id) {
@@ -45,8 +40,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: new URL(siteUrl),
-    title: `${storeName} | Curated K-Beauty & Luxury Skincare`,
-    description: "Experience the glow with Mohima's premium collection of authentic Korean beauty and luxury skincare. Curated routines for glass skin, hydration, and radiant health.",
+    title: `${storeName} - জিরো ফ্রিকশন হোম বাজার ডেলিভারি সার্ভিস`,
+    description:
+      "অফিস থেকে ফেরার পথে বাজারের টেনশন? বাজারের লিস্ট দিন (লিখে, ছবি দিয়ে বা মুখে বলে), আমরা নিখুঁতভাবে বাজার পৌঁছে দিব আপনার ঘরে।",
     alternates: {
       canonical: siteUrl,
     },
@@ -63,8 +59,9 @@ export async function generateMetadata(): Promise<Metadata> {
       other: Object.keys(otherVerification).length > 0 ? otherVerification : undefined,
     },
     openGraph: {
-      title: `${storeName} | Curated K-Beauty & Luxury Skincare`,
-      description: "Experience the glow with Mohima's premium collection of authentic Korean beauty and luxury skincare.",
+      title: `${storeName} - টাঙ্গাইল শহরের ১ নম্বর হোম বাজার সার্ভিস`,
+      description:
+        "অফিস থেকে ফেরার পথে বাজারের টেনশন? বাজারের লিস্ট দিন, তাজা শাকসবজি, দেশি মাছ ও মাংস পৌঁছে দিব বাসায়।",
       url: siteUrl,
       siteName: storeName,
       images: [
@@ -79,8 +76,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${storeName} | Curated K-Beauty & Luxury Skincare`,
-      description: "Experience the glow with Mohima's premium collection of authentic Korean beauty and luxury skincare.",
+      title: `${storeName} - টাঙ্গাইল শহরের ১ নম্বর হোম বাজার সার্ভিস`,
+      description:
+        "অফিস থেকে ফেরার পথে বাজারের টেনশন? বাজারের লিস্ট দিন, আমরা পৌঁছে দিব বাসায়।",
       images: [defaultOgImage],
     },
   };
@@ -98,7 +96,7 @@ export default async function CustomerLayout({
 
   const storeSetup = storeRes.success ? storeRes.resources : null;
   const seo = seoRes.success ? seoRes.resources : null;
-  const storeName = storeSetup?.store_name || "Mohima Premium Beauty";
+  const storeName = storeSetup?.store_name || "Tangail Express (টাঙ্গাইল এক্সপ্রেস)";
   const storeLogo = storeSetup?.logo || defaultOgImage;
 
   const jsonLd = {
@@ -114,7 +112,7 @@ export default async function CustomerLayout({
           url: storeLogo,
         },
         description:
-          "Premium collection of authentic Korean beauty and luxury skincare.",
+          "টাঙ্গাইল শহরের ১ নম্বর হোম বাজার ও গ্রোসারি ডেলিভারি সার্ভিস।",
       },
       {
         "@type": "WebSite",
@@ -124,20 +122,12 @@ export default async function CustomerLayout({
         publisher: {
           "@id": `${siteUrl}/#organization`,
         },
-        potentialAction: {
-          "@type": "SearchAction",
-          target: {
-            "@type": "EntryPoint",
-            urlTemplate: `${siteUrl}/catalog?q={search_term_string}`,
-          },
-          "query-input": "required name=search_term_string",
-        },
       },
     ],
   };
 
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} min-h-screen flex flex-col bg-[#FAF9F6] text-[#121212] antialiased`}>
+    <div className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col bg-[#f5f7f6] text-gray-900 antialiased`}>
       <TrackingScripts seo={seo} />
       <script
         type="application/ld+json"
