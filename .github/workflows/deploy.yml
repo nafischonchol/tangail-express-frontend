@@ -1,0 +1,29 @@
+name: Node.js CD (Auto Deploy)
+
+on:
+  push:
+    branches:
+      - develop  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploying to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+            cd /home/nexzan/mohima-frontend  # Apnar server-e project folder-er path
+            git reset --hard HEAD
+            git config pull.rebase false
+            git pull origin develop
+            rm -rf .next node_modules
+            npm ci
+            npm run build
+            pm2 restart mohima_frontend || pm2 start ecosystem.config.js
