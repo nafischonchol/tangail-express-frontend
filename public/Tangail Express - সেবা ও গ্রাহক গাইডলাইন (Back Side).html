@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)file:///home/nafis/projects/T-go/Design/leaflet-4-back.html -->
+<html lang="bn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tangail Express - সেবা ও গ্রাহক গাইডলাইন (Back Side)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="./Tangail Express - সেবা ও গ্রাহক গাইডলাইন (Back Side)_files/css2" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Hind Siliguri', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #e2e8f0;
+      color: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 24px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Main Flyer Card - Exactly matching leaflet-4.html size */
+    .flyer {
+      width: 100%;
+      max-width: 530px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 16px 40px -10px rgba(15, 23, 42, 0.15), 0 0 1px 1px rgba(15, 23, 42, 0.05);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Accent Line */
+    .top-brand-stripe {
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(90deg, #d90429 0%, #d90429 48%, #f59e0b 50%, #0b4ea2 52%, #0b4ea2 100%);
+    }
+
+    .flyer-content {
+      padding: 16px 20px 12px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #ffffff;
+    }
+
+    /* 1. Header Area */
+    .header-area {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1.5px solid #f1f5f9;
+      padding-bottom: 8px;
+    }
+
+    .brand-logo-wrap {
+      display: flex;
+      align-items: center;
+      line-height: 1;
+    }
+
+    .logo-tangail {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -0.5px;
+      color: #d90429;
+    }
+
+    .logo-express {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -0.5px;
+      color: #0b4ea2;
+    }
+
+    .header-badge-tag {
+      background: #0b4ea2;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Section Wrappers */
+    .section-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-bar {
+      width: 4px;
+      height: 14px;
+      background: #d90429;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .section-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #0b4ea2;
+    }
+
+    /* 2. Services 4-Column Grid */
+    .services-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .service-pill-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 6px 4px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .service-emoji {
+      font-size: 20px;
+      margin-bottom: 2px;
+      line-height: 1;
+    }
+
+    .service-name {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.15;
+    }
+
+    .service-sub {
+      font-size: 8px;
+      color: #64748b;
+      font-weight: 500;
+      margin-top: 1px;
+    }
+
+    /* 3. Pricing Box Table */
+    .pricing-card-box {
+      border: 1.5px solid #bfdbfe;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .pricing-box-header {
+      background: #0b4ea2;
+      color: #ffffff;
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pricing-header-left {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      font-weight: 700;
+    }
+
+    .pricing-badge-gold {
+      background: #facc15;
+      color: #0f172a;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1.5px 6px;
+      border-radius: 4px;
+    }
+
+    .weight-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: #ffffff;
+      text-align: center;
+      padding: 6px 0;
+    }
+
+    .weight-col {
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .weight-col:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background: #e2e8f0;
+    }
+
+    .tier-weight {
+      font-size: 10px;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .tier-rate-red {
+      font-size: 18px;
+      font-weight: 900;
+      color: #d90429;
+      line-height: 1.1;
+      margin: 1px 0;
+    }
+
+    .tier-rate-blue {
+      font-size: 18px;
+      font-weight: 900;
+      color: #0b4ea2;
+      line-height: 1.1;
+      margin: 1px 0;
+    }
+
+    .tier-note {
+      font-size: 8px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .distance-strip {
+      background: #eff6ff;
+      border-top: 1px dashed #bfdbfe;
+      padding: 4px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 9.5px;
+    }
+
+    .distance-left {
+      color: #334155;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .distance-right-tag {
+      background: #dbeafe;
+      color: #0b4ea2;
+      font-weight: 800;
+      padding: 1.5px 6px;
+      border-radius: 4px;
+      font-size: 9px;
+    }
+
+    /* 4. Rules 2x2 Grid */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .rule-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      padding: 6px 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+    }
+
+    .rule-card-alert {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .rule-icon {
+      font-size: 14px;
+      line-height: 1;
+      padding: 4px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.8);
+      flex-shrink: 0;
+    }
+
+    .rule-content {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+
+    .rule-title {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .rule-title-alert {
+      color: #b91c1c;
+    }
+
+    .rule-desc {
+      font-size: 8.5px;
+      color: #475569;
+      font-weight: 500;
+      margin-top: 1px;
+    }
+
+    /* 5. Coverage Area Banner */
+    .coverage-banner {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 9.5px;
+    }
+
+    .coverage-pill {
+      background: #16a34a;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 8.5px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .coverage-text {
+      color: #166534;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    /* 6. Hotline & Schedule Banner */
+    .hotline-schedule-card {
+      border: 1.5px solid #d90429;
+      background: #fff5f5;
+      border-radius: 10px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hotline-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hotline-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    .hotline-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      color: #d90429;
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+    }
+
+    .schedule-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .schedule-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    .schedule-time {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #0b4ea2;
+      line-height: 1.1;
+    }
+
+    /* 7. Footer Area */
+    .footer-area {
+      background: #0b4ea2;
+      color: #ffffff;
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 9.5px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      color: #ffffff;
+      font-size: 9.5px;
+      text-decoration: none;
+    }
+
+    .footer-item svg {
+      color: #93c5fd;
+    }
+
+    .footer-slogan {
+      font-weight: 600;
+      color: #e2e8f0;
+      font-size: 9.5px;
+    }
+
+    /* Floating Print Button for Browser Preview */
+    .print-btn-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0b4ea2;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(11, 78, 162, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 100;
+      transition: all 0.2s ease;
+    }
+
+    .print-btn-float:hover {
+      background: #d90429;
+      transform: translateY(-2px);
+    }
+
+    /* Print Optimization Rules (A5 Standard) */
+    @media print {
+      @page {
+        size: A5 portrait;
+        margin: 0;
+      }
+
+      html, body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .print-btn-float {
+        display: none !important;
+      }
+
+      .flyer {
+        width: 148mm !important;
+        max-width: 148mm !important;
+        min-height: 210mm !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 auto !important;
+      }
+
+      .flyer-content {
+        padding: 8mm 9mm 5mm 9mm !important;
+      }
+
+      .footer-area {
+        padding: 5mm 9mm !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Print Helper for Instant Preview -->
+  <button class="print-btn-float" onclick="window.print()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 6 2 18 2 18 9"></polyline>
+      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+      <rect x="6" y="14" width="12" height="8"></rect>
+    </svg>
+    প্রিন্ট প্রিভিউ
+  </button>
+
+  <div class="flyer">
+    <!-- Top Brand Accent Line -->
+    <div class="top-brand-stripe"></div>
+
+    <div class="flyer-content">
+
+      <!-- 1. Header Section -->
+      <header class="header-area">
+        <div class="brand-logo-wrap">
+          <span class="logo-tangail">Tangail</span>
+          <span class="logo-express">Express</span>
+        </div>
+        <div class="header-badge-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path>
+            <rect x="9" y="3" width="6" height="4" rx="1"></rect>
+            <path d="m9 14 2 2 4-4"></path>
+          </svg>
+          <span>সেবা ও গ্রাহক গাইডলাইন</span>
+        </div>
+      </header>
+
+      <!-- 2. Services Section -->
+      <section class="section-wrap">
+        <div class="section-header">
+          <span class="section-bar"></span>
+          <h2 class="section-title">আমাদের প্রধান সেবাসমূহ</h2>
+        </div>
+
+        <div class="services-row">
+          <!-- 1. কাঁচাবাজার -->
+          <div class="service-pill-card">
+            <div class="service-emoji">🥬</div>
+            <span class="service-name">কাঁচাবাজার ও সদাই</span>
+            <span class="service-sub">মাছ, মাংস ও শাকসবজি</span>
+          </div>
+
+          <!-- 2. জরুরি ওষুধ -->
+          <div class="service-pill-card">
+            <div class="service-emoji">💊</div>
+            <span class="service-name">জরুরি ওষুধ</span>
+            <span class="service-sub">প্রেসক্রিপশন অনুযায়ী</span>
+          </div>
+
+          <!-- 3. রেস্টুরেন্ট খাবার -->
+          <div class="service-pill-card">
+            <div class="service-emoji">🍔</div>
+            <span class="service-name">রেস্টুরেন্ট খাবার</span>
+            <span class="service-sub">হোটেল, ক্যাফে ও মিষ্টি</span>
+          </div>
+
+          <!-- 4. পার্সেল ও শপিং -->
+          <div class="service-pill-card">
+            <div class="service-emoji">📦</div>
+            <span class="service-name">পার্সেল ও কেনাকাটা</span>
+            <span class="service-sub">যেকোনো দোকান থেকে</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Pricing Table Section -->
+      <section class="section-wrap">
+        <div class="section-header">
+          <span class="section-bar"></span>
+          <h2 class="section-title">ডেলিভারি চার্জ ও দূরত্বের হিসাব</h2>
+        </div>
+
+        <div class="pricing-card-box">
+          <div class="pricing-box-header">
+            <div class="pricing-header-left">
+              <span>⚖️</span>
+              <span>ওজন অনুযায়ী চার্জ তালিকা</span>
+            </div>
+            <span class="pricing-badge-gold">টাঙ্গাইল শহর জুড়ে</span>
+          </div>
+
+          <div class="weight-grid">
+            <!-- 0 - 2 KG -->
+            <div class="weight-col">
+              <span class="tier-weight">০ – ২ কেজি</span>
+              <span class="tier-rate-red">৫০৳</span>
+              <span class="tier-note">বেসিক চার্জ</span>
+            </div>
+
+            <!-- 3 KG -->
+            <div class="weight-col">
+              <span class="tier-weight">৩ কেজি</span>
+              <span class="tier-rate-blue">৫৫৳</span>
+              <span class="tier-note">+৫৳</span>
+            </div>
+
+            <!-- 4 KG -->
+            <div class="weight-col">
+              <span class="tier-weight">৪ কেজি</span>
+              <span class="tier-rate-blue">৬০৳</span>
+              <span class="tier-note">+১০৳</span>
+            </div>
+
+            <!-- 4+ KG -->
+            <div class="weight-col">
+              <span class="tier-weight">৪+ কেজি</span>
+              <span class="tier-rate-blue">+১০৳</span>
+              <span class="tier-note">প্রতি কেজি</span>
+            </div>
+          </div>
+
+          <div class="distance-strip">
+            <div class="distance-left">
+              <span style="color: #ef4444;">📍</span>
+              <span>দূরত্ব নিয়ম: ১.৫ কিমি পর্যন্ত ৫০৳ বেসিক চার্জ</span>
+            </div>
+            <span class="distance-right-tag">অতিরিক্ত দূরত্ব: +১০৳ / কিমি</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Rules & Guidelines -->
+      <section class="section-wrap">
+        <div class="section-header">
+          <span class="section-bar"></span>
+          <h2 class="section-title">অর্ডার ও সার্ভিস সংক্রান্ত বিশেষ নিয়মাবলী</h2>
+        </div>
+
+        <div class="rules-grid">
+          <!-- Rule 1: Advance Payment -->
+          <div class="rule-card">
+            <span class="rule-icon">💳</span>
+            <div class="rule-content">
+              <span class="rule-title">অগ্রিম পেমেন্ট পলিসি</span>
+              <span class="rule-desc">কেনাকাটা <strong>৫০০ টাকার বেশি</strong> হলে কিছু টাকা অগ্রিম (bKash/Nagad) দিতে হবে।</span>
+            </div>
+          </div>
+
+          <!-- Rule 2: Cancellation Rule -->
+          <div class="rule-card rule-card-alert">
+            <span class="rule-icon" style="background: rgba(254, 226, 226, 0.9);">🚫</span>
+            <div class="rule-content">
+              <span class="rule-title rule-title-alert">অর্ডার বাতিল নীতিমালা</span>
+              <span class="rule-desc">রাইডার দোকান থেকে পণ্য কেনার পর <strong>কোনো অর্ডার বাতিল করা যাবে না।</strong></span>
+            </div>
+          </div>
+
+          <!-- Rule 3: Verification & Memo -->
+          <div class="rule-card">
+            <span class="rule-icon">🧾</span>
+            <div class="rule-content">
+              <span class="rule-title">পণ্য যাচাই ও ক্যাশমেমো</span>
+              <span class="rule-desc">দোকানের ক্যাশমেমো বুঝিয়ে দেওয়া হবে। ডেলিভারির সময় <strong>পণ্য যাচাই করে</strong> গ্রহণ করবেন।</span>
+            </div>
+          </div>
+
+          <!-- Rule 4: Easy Ordering -->
+          <div class="rule-card">
+            <span class="rule-icon">📝</span>
+            <div class="rule-content">
+              <span class="rule-title">সহজ অর্ডার পদ্ধতি</span>
+              <span class="rule-desc">খাবার, মিষ্টি, নির্দিষ্ট ব্র্যান্ড বা প্রেসক্রিপশনের স্পষ্ট ছবি <strong>WhatsApp-এ</strong> পাঠাবেন।</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Coverage Area Banner -->
+      <div class="coverage-banner">
+        <div class="coverage-pill">
+          <span>📍</span>
+          <span>কভারেজ এরিয়া</span>
+        </div>
+        <div class="coverage-text">
+          <strong>টাঙ্গাইল শহর (Tangail Town)</strong> — শহরের যেকোনো প্রান্ত থেকে যেকোনো দোকানে আমাদের ডেলিভারি সেবা প্রযোজ্য।
+        </div>
+      </div>
+
+      <!-- 6. Hotline & Schedule Card -->
+      <section class="hotline-schedule-card">
+        <div class="hotline-left">
+          <span class="hotline-label">অর্ডার ও হেল্পলাইন হটলাইন:</span>
+          <span class="hotline-num">০১৬৪১-০৭৭৭৪২</span>
+        </div>
+        <div class="schedule-right">
+          <span class="schedule-label">সেবা প্রদানের সময়সূচি:</span>
+          <span class="schedule-time">সকাল ৯:০০ টা — সন্ধ্যা ৭:০০ টা</span>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 7. Footer Area -->
+    <footer class="footer-area">
+      <div class="footer-links">
+        <a href="https://tangailexpress.com/" class="footer-item" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span>tangailexpress.com</span>
+        </a>
+        <a href="https://fb.com/tangailexpressbd" class="footer-item" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+          </svg>
+          <span>fb.com/tangailexpressbd</span>
+        </a>
+      </div>
+      <div class="footer-slogan">
+        <span>টাঙ্গাইল এক্সপ্রেস — আপনার নির্ভরযোগ্য ডেলিভারি পার্টনার</span>
+      </div>
+    </footer>
+  </div>
+
+
+</body></html>
