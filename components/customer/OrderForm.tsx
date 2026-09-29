@@ -101,11 +101,6 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
     }
   };
 
-  // Load cached customer info from localStorage on mount
-  useEffect(() => {
-    checkAndAutofillFromStorage();
-  }, []);
-
   // Handle Image Selection
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -211,7 +206,10 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
         setSuccessOrder(response.resources);
         setIsModalOpen(true);
 
-        // Reset list inputs
+        // Reset inputs (clear form fields) while keeping localStorage saved
+        setCustomerName("");
+        setPhone("");
+        setAddress("");
         setRawTextList("");
         removeImage();
         setRecordedVoiceFile(null);

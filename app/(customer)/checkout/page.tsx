@@ -301,18 +301,6 @@ export default function CheckoutPage() {
           console.warn("Error auto-filling profile data:", err);
         }
       }
-
-      // 4. Fallback: Auto-fill from localStorage if fields are empty
-      const saved = getSavedDeliveryData();
-      if (saved) {
-        setFormData((prev) => ({
-          ...prev,
-          fullName: prev.fullName || saved.fullName || "",
-          phone: prev.phone || saved.phone || "",
-          district: prev.district || saved.district || "",
-          fullAddress: prev.fullAddress || saved.fullAddress || "",
-        }));
-      }
     };
 
     autoFillData();
@@ -448,6 +436,15 @@ export default function CheckoutPage() {
         const district = formData.district.trim();
         const phone = formData.phone.trim();
         const address = formData.fullAddress.trim();
+
+        // Clear form fields while preserving saved localStorage data for future orders
+        setFormData({
+          fullName: "",
+          phone: "",
+          district: "",
+          fullAddress: "",
+          note: "",
+        });
 
         const orderInfo = {
           invoiceNo,
