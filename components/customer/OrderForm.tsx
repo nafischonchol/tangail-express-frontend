@@ -424,7 +424,6 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
                     ref={fileInputRef}
                     type="file"
                     accept="image/*"
-                    capture="environment"
                     onChange={handleImageChange}
                     className="hidden"
                   />
