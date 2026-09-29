@@ -19,7 +19,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { useWishlistStore } from "@/lib/store/wishlistStore";
 import { useCustomerAuth } from "@/lib/hooks/useCustomerAuth";
-import { getSearchSuggestions, trackSearchClick, ProductSearchSuggestion } from "@/lib/api/products";
+import {
+  getSearchSuggestions,
+  trackSearchClick,
+  ProductSearchSuggestion,
+} from "@/lib/api/products";
 import { useStoreSetup } from "@/context/StoreSetupContext";
 import { getMenuCategories, PublicCategory } from "@/lib/api/categories";
 import { trackSearchEvent } from "@/lib/utils/analytics";
@@ -71,7 +75,7 @@ export default function Header() {
   const onCartClick = () => setCartOpen(true);
 
   const storeName = storeSetup?.store_name || "Tangail Express";
-  const logoUrl = storeSetup?.logo || "/logo.jpeg";
+  const logoUrl = storeSetup?.logo || "/logo.png";
   const phone = storeSetup?.phone;
   const facebookUrl = storeSetup?.facebook;
   const instagramUrl = storeSetup?.instagram;
@@ -88,11 +92,14 @@ export default function Header() {
   };
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams?.get("q") || "");
-  const [searchResults, setSearchResults] = useState<ProductSearchSuggestion[]>([]);
+  const [searchResults, setSearchResults] = useState<ProductSearchSuggestion[]>(
+    [],
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
-  const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8001";
+  const apiBase =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8001";
 
   // Fetch header menu categories dynamically
   useEffect(() => {
@@ -152,7 +159,10 @@ export default function Header() {
   // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -177,9 +187,7 @@ export default function Header() {
     const trimmed = searchQuery.trim();
     if (trimmed) {
       trackSearchEvent(trimmed);
-      router.push(
-        `/catalog?search_text=${encodeURIComponent(trimmed)}`,
-      );
+      router.push(`/catalog?search_text=${encodeURIComponent(trimmed)}`);
     } else {
       router.push(`/catalog`);
     }
@@ -214,7 +222,10 @@ export default function Header() {
                     key={product.id}
                     onMouseDown={(e) => {
                       e.preventDefault();
-                      handleProductClick(product.slug_url || product.slug, product.id);
+                      handleProductClick(
+                        product.slug_url || product.slug,
+                        product.id,
+                      );
                     }}
                     className="flex items-center gap-3.5 p-3 hover:bg-[#FDF2F8]/70 cursor-pointer transition-colors group"
                   >
@@ -255,7 +266,9 @@ export default function Header() {
 
                         {brandCategoryText && (
                           <>
-                            <span className="text-zinc-300 text-xs flex-shrink-0">•</span>
+                            <span className="text-zinc-300 text-xs flex-shrink-0">
+                              •
+                            </span>
                             <span className="text-[11px] text-zinc-500 truncate min-w-0">
                               {brandCategoryText}
                             </span>
@@ -451,7 +464,10 @@ export default function Header() {
           </div>
 
           {/* Search Bar (Rounded pill) */}
-          <div className="w-full md:flex-1 max-w-xl relative" ref={searchContainerRef}>
+          <div
+            className="w-full md:flex-1 max-w-xl relative"
+            ref={searchContainerRef}
+          >
             <form onSubmit={handleSearchSubmit} className="relative w-full">
               <input
                 type="text"
@@ -653,8 +669,7 @@ export default function Header() {
                 className="text-[10px] text-[#565656]/60 tracking-wider"
                 suppressHydrationWarning
               >
-                © {new Date().getFullYear()} {storeName}. All rights
-                reserved.
+                © {new Date().getFullYear()} {storeName}. All rights reserved.
               </p>
             </div>
           </div>

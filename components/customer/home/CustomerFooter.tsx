@@ -3,7 +3,16 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingCart, PhoneCall, Mail, MapPin, Facebook, Instagram, MessageCircle, Youtube } from "lucide-react";
+import {
+  ShoppingCart,
+  PhoneCall,
+  Mail,
+  MapPin,
+  Facebook,
+  Instagram,
+  MessageCircle,
+  Youtube,
+} from "lucide-react";
 import { useStoreSetup } from "@/context/StoreSetupContext";
 
 const TiktokIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -15,13 +24,20 @@ const TiktokIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export function CustomerFooter() {
   const { storeSetup } = useStoreSetup();
 
-  const logoUrl = storeSetup?.logo || "/logo.jpeg";
+  const logoUrl = storeSetup?.logo || "/logo.png";
   const storeName = storeSetup?.store_name || "Tangail Express";
   const helplinePhone = storeSetup?.phone || "+8801700000000";
   const email = storeSetup?.email || "wholesale@mohimaa.com";
-  const address = [storeSetup?.street_address, storeSetup?.upazila_name, storeSetup?.district_name]
-    .filter(Boolean)
-    .join(", ") || storeSetup?.street_address || "Dhaka, Bangladesh";
+  const address =
+    [
+      storeSetup?.street_address,
+      storeSetup?.upazila_name,
+      storeSetup?.district_name,
+    ]
+      .filter(Boolean)
+      .join(", ") ||
+    storeSetup?.street_address ||
+    "Dhaka, Bangladesh";
   const currentYear = new Date().getFullYear();
 
   const facebook = storeSetup?.facebook;
@@ -59,31 +75,62 @@ export function CustomerFooter() {
               )}
             </div>
             <p className="text-sm text-zinc-400 leading-relaxed">
-              100% Authentic Korean Beauty Products • Direct from Brand Owners & Trusted Suppliers
+              100% Authentic Korean Beauty Products • Direct from Brand Owners &
+              Trusted Suppliers
             </p>
             <div className="flex items-center gap-3 mt-2">
               {facebook && (
-                <a href={facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-800/90 border border-zinc-700/60 flex items-center justify-center text-zinc-400 hover:bg-[#BA478F] hover:text-white transition-all shadow-2xs" aria-label="Facebook">
+                <a
+                  href={facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-zinc-800/90 border border-zinc-700/60 flex items-center justify-center text-zinc-400 hover:bg-[#BA478F] hover:text-white transition-all shadow-2xs"
+                  aria-label="Facebook"
+                >
                   <Facebook size={18} />
                 </a>
               )}
               {instagram && (
-                <a href={instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-800/90 border border-zinc-700/60 flex items-center justify-center text-zinc-400 hover:bg-[#BA478F] hover:text-white transition-all shadow-2xs" aria-label="Instagram">
+                <a
+                  href={instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-zinc-800/90 border border-zinc-700/60 flex items-center justify-center text-zinc-400 hover:bg-[#BA478F] hover:text-white transition-all shadow-2xs"
+                  aria-label="Instagram"
+                >
                   <Instagram size={18} />
                 </a>
               )}
               {youtube && (
-                <a href={youtube} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-800/90 border border-zinc-700/60 flex items-center justify-center text-zinc-400 hover:bg-[#BA478F] hover:text-white transition-all shadow-2xs" aria-label="YouTube">
+                <a
+                  href={youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-zinc-800/90 border border-zinc-700/60 flex items-center justify-center text-zinc-400 hover:bg-[#BA478F] hover:text-white transition-all shadow-2xs"
+                  aria-label="YouTube"
+                >
                   <Youtube size={18} />
                 </a>
               )}
               {tiktok && (
-                <a href={tiktok} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-800/90 border border-zinc-700/60 flex items-center justify-center text-zinc-400 hover:bg-[#BA478F] hover:text-white transition-all shadow-2xs" aria-label="TikTok">
+                <a
+                  href={tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-zinc-800/90 border border-zinc-700/60 flex items-center justify-center text-zinc-400 hover:bg-[#BA478F] hover:text-white transition-all shadow-2xs"
+                  aria-label="TikTok"
+                >
                   <TiktokIcon className="w-4 h-4 fill-current" />
                 </a>
               )}
               {helplinePhone && (
-                <a href={`https://wa.me/${helplinePhone.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-800/90 border border-zinc-700/60 flex items-center justify-center text-zinc-400 hover:bg-[#BA478F] hover:text-white transition-all shadow-2xs" aria-label="WhatsApp">
+                <a
+                  href={`https://wa.me/${helplinePhone.replace(/[^0-9]/g, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-zinc-800/90 border border-zinc-700/60 flex items-center justify-center text-zinc-400 hover:bg-[#BA478F] hover:text-white transition-all shadow-2xs"
+                  aria-label="WhatsApp"
+                >
                   <MessageCircle size={18} />
                 </a>
               )}
@@ -92,34 +139,120 @@ export function CustomerFooter() {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h3 className="text-sm font-bold text-zinc-100 uppercase tracking-wider mb-5">Quick Links</h3>
+            <h3 className="text-sm font-bold text-zinc-100 uppercase tracking-wider mb-5">
+              Quick Links
+            </h3>
             <ul className="flex flex-col gap-3 text-sm font-medium text-zinc-400">
-              <li><Link href="/" className="hover:text-[#D062A5] transition-colors">Home</Link></li>
-              <li><Link href="/catalog" className="hover:text-[#D062A5] transition-colors">Cosmetics Catalog</Link></li>
-              <li><Link href="/brands" className="hover:text-[#D062A5] transition-colors">All Brands</Link></li>
-              <li><Link href="/best-sellings" className="hover:text-[#D062A5] transition-colors">Best Sellers</Link></li>
-              <li><Link href="/contact" className="hover:text-[#D062A5] transition-colors">Contact Us</Link></li>
+              <li>
+                <Link
+                  href="/"
+                  className="hover:text-[#D062A5] transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/catalog"
+                  className="hover:text-[#D062A5] transition-colors"
+                >
+                  Cosmetics Catalog
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/brands"
+                  className="hover:text-[#D062A5] transition-colors"
+                >
+                  All Brands
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/best-sellings"
+                  className="hover:text-[#D062A5] transition-colors"
+                >
+                  Best Sellers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="hover:text-[#D062A5] transition-colors"
+                >
+                  Contact Us
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Column 3: Customer Service */}
           <div>
-            <h3 className="text-sm font-bold text-zinc-100 uppercase tracking-wider mb-5">Customer Service</h3>
+            <h3 className="text-sm font-bold text-zinc-100 uppercase tracking-wider mb-5">
+              Customer Service
+            </h3>
             <ul className="flex flex-col gap-3 text-sm font-medium text-zinc-400">
-              <li><Link href="/faq" className="hover:text-[#D062A5] transition-colors">FAQs</Link></li>
-              <li><Link href="/shipping" className="hover:text-[#D062A5] transition-colors">Shipping & Delivery</Link></li>
-              <li><Link href="/returns" className="hover:text-[#D062A5] transition-colors">Return Policy</Link></li>
-              <li><Link href="/payment" className="hover:text-[#D062A5] transition-colors">Payment Information</Link></li>
-              <li><Link href="/terms" className="hover:text-[#D062A5] transition-colors">Terms & Conditions</Link></li>
-              <li><Link href="/privacy" className="hover:text-[#D062A5] transition-colors">Privacy Policy</Link></li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="hover:text-[#D062A5] transition-colors"
+                >
+                  FAQs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/shipping"
+                  className="hover:text-[#D062A5] transition-colors"
+                >
+                  Shipping & Delivery
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/returns"
+                  className="hover:text-[#D062A5] transition-colors"
+                >
+                  Return Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/payment"
+                  className="hover:text-[#D062A5] transition-colors"
+                >
+                  Payment Information
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="hover:text-[#D062A5] transition-colors"
+                >
+                  Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="hover:text-[#D062A5] transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Column 4: Connect With Us */}
           <div>
-            <h3 className="text-sm font-bold text-zinc-100 uppercase tracking-wider mb-5">CONTACT US</h3>
+            <h3 className="text-sm font-bold text-zinc-100 uppercase tracking-wider mb-5">
+              CONTACT US
+            </h3>
             <p className="text-sm text-zinc-400 mb-4 leading-relaxed">
-              Have questions about our Korean beauty products, wholesale pricing, bulk orders, product sourcing, or B2B partnership opportunities? Our dedicated team is here to assist you with reliable information and professional support.
+              Have questions about our Korean beauty products, wholesale
+              pricing, bulk orders, product sourcing, or B2B partnership
+              opportunities? Our dedicated team is here to assist you with
+              reliable information and professional support.
             </p>
           </div>
         </div>
@@ -127,8 +260,8 @@ export function CustomerFooter() {
         {/* Contact Info Row & Bottom Bar */}
         <div className="pt-8 border-t border-zinc-800 flex flex-col gap-6">
           <div className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-4 md:gap-6 text-sm text-zinc-300">
-            <a 
-              href={`tel:${helplinePhone}`} 
+            <a
+              href={`tel:${helplinePhone}`}
               className="flex items-center gap-3 px-5 py-3 rounded-full bg-zinc-800/80 border border-zinc-700/60 hover:bg-zinc-800 hover:border-[#D062A5]/50 hover:text-white transition-all shadow-2xs group w-full md:w-auto justify-center"
             >
               <div className="w-8 h-8 rounded-full bg-pink-500/10 flex items-center justify-center text-[#D062A5] group-hover:bg-[#BA478F] group-hover:text-white transition-colors shrink-0">
@@ -136,9 +269,9 @@ export function CustomerFooter() {
               </div>
               <span className="font-medium tracking-wide">{helplinePhone}</span>
             </a>
-            
-            <a 
-              href={`mailto:${email}`} 
+
+            <a
+              href={`mailto:${email}`}
               className="flex items-center gap-3 px-5 py-3 rounded-full bg-zinc-800/80 border border-zinc-700/60 hover:bg-zinc-800 hover:border-[#D062A5]/50 hover:text-white transition-all shadow-2xs group w-full md:w-auto justify-center"
             >
               <div className="w-8 h-8 rounded-full bg-pink-500/10 flex items-center justify-center text-[#D062A5] group-hover:bg-[#BA478F] group-hover:text-white transition-colors shrink-0">
@@ -146,19 +279,21 @@ export function CustomerFooter() {
               </div>
               <span className="font-medium tracking-wide">{email}</span>
             </a>
-            
-            <div 
-              className="flex items-center gap-3 px-5 py-3 rounded-full bg-zinc-800/80 border border-zinc-700/60 transition-all shadow-2xs w-full md:w-auto justify-center"
-            >
+
+            <div className="flex items-center gap-3 px-5 py-3 rounded-full bg-zinc-800/80 border border-zinc-700/60 transition-all shadow-2xs w-full md:w-auto justify-center">
               <div className="w-8 h-8 rounded-full bg-pink-500/10 flex items-center justify-center text-[#D062A5] shrink-0">
                 <MapPin size={14} />
               </div>
-              <span className="font-medium tracking-wide text-zinc-300">{address}</span>
+              <span className="font-medium tracking-wide text-zinc-300">
+                {address}
+              </span>
             </div>
           </div>
-          
+
           <div className="pt-4 border-t border-zinc-800/60 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium text-zinc-500">
-            <p>© {currentYear} {storeName}. All rights reserved.</p>
+            <p>
+              © {currentYear} {storeName}. All rights reserved.
+            </p>
             <div className="flex items-center gap-6">
               <span>B2B Wholesale Portal</span>
             </div>
@@ -168,4 +303,3 @@ export function CustomerFooter() {
     </footer>
   );
 }
-

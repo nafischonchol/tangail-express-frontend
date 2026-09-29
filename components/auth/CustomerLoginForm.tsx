@@ -4,7 +4,16 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Lock, Eye, EyeOff, Loader2, ArrowRight, ShieldCheck, Mail } from "lucide-react";
+import {
+  Phone,
+  Lock,
+  Eye,
+  EyeOff,
+  Loader2,
+  ArrowRight,
+  ShieldCheck,
+  Mail,
+} from "lucide-react";
 import toast from "react-hot-toast";
 import {
   sendCustomerOtp,
@@ -18,7 +27,10 @@ export function CustomerLoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectParam = searchParams.get("redirect");
-  const redirectPath = redirectParam && redirectParam !== "/login" && redirectParam !== "/register" ? redirectParam : "/account";
+  const redirectPath =
+    redirectParam && redirectParam !== "/login" && redirectParam !== "/register"
+      ? redirectParam
+      : "/account";
 
   const { isLoggedIn, loading: authLoading } = useCustomerAuth();
 
@@ -72,13 +84,21 @@ export function CustomerLoginForm() {
       if (res.success) {
         setOtpSent(true);
         setCountdown(60);
-        const devOtpMsg = res.resources?.dev_otp ? ` (Dev OTP: ${res.resources.dev_otp})` : "";
+        const devOtpMsg = res.resources?.dev_otp
+          ? ` (Dev OTP: ${res.resources.dev_otp})`
+          : "";
         toast.success(`Verification code sent!${devOtpMsg}`, {
           duration: 6000,
-          style: { background: "#18181b", color: "#f4f4f5", border: "1px solid #27272a" },
+          style: {
+            background: "#18181b",
+            color: "#f4f4f5",
+            border: "1px solid #27272a",
+          },
         });
       } else {
-        setErrorMessage(res.message || "Failed to send verification code. Please try again.");
+        setErrorMessage(
+          res.message || "Failed to send verification code. Please try again.",
+        );
       }
     } catch (err: any) {
       setErrorMessage(err?.message || "An unexpected error occurred.");
@@ -102,7 +122,11 @@ export function CustomerLoginForm() {
       if (res.success && res.resources?.token) {
         persistCustomerSession(res.resources);
         toast.success("Signed in successfully!", {
-          style: { background: "#18181b", color: "#f4f4f5", border: "1px solid #27272a" },
+          style: {
+            background: "#18181b",
+            color: "#f4f4f5",
+            border: "1px solid #27272a",
+          },
         });
         router.push(redirectPath);
       } else {
@@ -134,11 +158,17 @@ export function CustomerLoginForm() {
       if (res.success && res.resources?.token) {
         persistCustomerSession(res.resources);
         toast.success("Signed in successfully!", {
-          style: { background: "#18181b", color: "#f4f4f5", border: "1px solid #27272a" },
+          style: {
+            background: "#18181b",
+            color: "#f4f4f5",
+            border: "1px solid #27272a",
+          },
         });
         router.push(redirectPath);
       } else {
-        setErrorMessage(res.message || "Invalid credentials or account not active.");
+        setErrorMessage(
+          res.message || "Invalid credentials or account not active.",
+        );
       }
     } catch (err: any) {
       setErrorMessage(err?.message || "Login failed. Please try again.");
@@ -150,7 +180,11 @@ export function CustomerLoginForm() {
   const handleSocialClick = (provider: string) => {
     toast(`Social sign-in with ${provider} will be available soon.`, {
       icon: "ℹ️",
-      style: { background: "#18181b", color: "#f4f4f5", border: "1px solid #27272a" },
+      style: {
+        background: "#18181b",
+        color: "#f4f4f5",
+        border: "1px solid #27272a",
+      },
     });
   };
 
@@ -158,7 +192,9 @@ export function CustomerLoginForm() {
     return (
       <div className="w-full max-w-md mx-auto bg-white border border-zinc-200 rounded-2xl p-12 shadow-xs flex flex-col items-center justify-center min-h-[320px] gap-3">
         <Loader2 className="animate-spin text-[#BA478F]" size={28} />
-        <p className="text-xs text-zinc-500 font-medium">Redirecting to account...</p>
+        <p className="text-xs text-zinc-500 font-medium">
+          Redirecting to account...
+        </p>
       </div>
     );
   }
@@ -167,9 +203,12 @@ export function CustomerLoginForm() {
     <div className="w-full max-w-md mx-auto bg-white border border-zinc-200 rounded-2xl p-6 sm:p-8 shadow-xs">
       {/* Brand Logo Header */}
       <div className="flex flex-col items-center justify-center mb-6">
-        <Link href="/" className="inline-block transition-opacity hover:opacity-90 mb-2">
+        <Link
+          href="/"
+          className="inline-block transition-opacity hover:opacity-90 mb-2"
+        >
           <Image
-            src="/logo.jpeg"
+            src="/logo.png"
             alt="Tangail Express"
             width={320}
             height={96}
@@ -305,7 +344,9 @@ export function CustomerLoginForm() {
                 <div className="flex justify-between items-center text-[11px] text-zinc-500 mt-2">
                   <span>Sent to {phone}</span>
                   {countdown > 0 ? (
-                    <span className="text-zinc-400">Resend in {countdown}s</span>
+                    <span className="text-zinc-400">
+                      Resend in {countdown}s
+                    </span>
                   ) : (
                     <button
                       type="button"
@@ -363,7 +404,9 @@ export function CustomerLoginForm() {
 
           <div>
             <div className="flex justify-between items-center mb-1.5">
-              <label className="text-xs font-semibold text-zinc-700">Password</label>
+              <label className="text-xs font-semibold text-zinc-700">
+                Password
+              </label>
               <Link
                 href="/forgot-password"
                 className="text-[11px] text-[#BA478F] hover:underline font-medium"
@@ -454,7 +497,11 @@ export function CustomerLoginForm() {
           onClick={() => handleSocialClick("Facebook")}
           className="flex items-center justify-center gap-2 py-2 px-3 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 transition-colors cursor-pointer"
         >
-          <svg className="w-4 h-4 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="w-4 h-4 text-[#1877F2]"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
           </svg>
           <span>Facebook</span>

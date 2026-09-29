@@ -17,8 +17,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tangailexpress.com";
-const defaultOgImage = `${siteUrl}/logo.jpeg`;
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://tangailexpress.com";
+const defaultOgImage = `${siteUrl}/logo.png`;
 
 export async function generateMetadata(): Promise<Metadata> {
   const [storeRes, seoRes] = await Promise.all([
@@ -28,7 +29,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const storeSetup = storeRes.success ? storeRes.resources : null;
   const seo = seoRes.success ? seoRes.resources : null;
-  const storeName = storeSetup?.store_name || "Tangail Express | টাঙ্গাইল এক্সপ্রেস";
+  const storeName =
+    storeSetup?.store_name || "Tangail Express | টাঙ্গাইল এক্সপ্রেস";
 
   const otherVerification: Record<string, string> = {};
   if (seo?.bing_webmaster_id) {
@@ -61,7 +63,10 @@ export async function generateMetadata(): Promise<Metadata> {
     verification: {
       google: seo?.google_search_console_id || undefined,
       yandex: seo?.yandex_webmaster_id || undefined,
-      other: Object.keys(otherVerification).length > 0 ? otherVerification : undefined,
+      other:
+        Object.keys(otherVerification).length > 0
+          ? otherVerification
+          : undefined,
     },
     openGraph: {
       title: `${storeName} - টাঙ্গাইল শহরের ১ নম্বর হোম বাজার সার্ভিস`,
@@ -101,7 +106,8 @@ export default async function CustomerLayout({
 
   const storeSetup = storeRes.success ? storeRes.resources : null;
   const seo = seoRes.success ? seoRes.resources : null;
-  const storeName = storeSetup?.store_name || "Tangail Express (টাঙ্গাইল এক্সপ্রেস)";
+  const storeName =
+    storeSetup?.store_name || "Tangail Express (টাঙ্গাইল এক্সপ্রেস)";
   const storeLogo = storeSetup?.logo || defaultOgImage;
 
   const jsonLd = {
@@ -132,7 +138,9 @@ export default async function CustomerLayout({
   };
 
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col bg-[#f5f7f6] text-gray-900 antialiased`}>
+    <div
+      className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col bg-[#f5f7f6] text-gray-900 antialiased`}
+    >
       <TrackingScripts seo={seo} />
       <script
         type="application/ld+json"

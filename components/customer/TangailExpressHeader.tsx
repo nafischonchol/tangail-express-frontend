@@ -1,8 +1,8 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { Phone, MessageCircle, ShoppingBag, ArrowRight, Sparkles } from "lucide-react";
+import Image from "next/image";
+import { Phone, MessageCircle, ArrowRight, Sparkles } from "lucide-react";
+import { useStoreSetup } from "@/context/StoreSetupContext";
 
 interface TangailExpressHeaderProps {
   phone?: string;
@@ -13,6 +13,10 @@ export default function TangailExpressHeader({
   phone = "01700000000",
   whatsapp = "8801700000000",
 }: TangailExpressHeaderProps) {
+  const { storeSetup } = useStoreSetup();
+  const logoUrl = storeSetup?.logo || "/logo.png";
+  const storeName = storeSetup?.store_name || "Tangail Express";
+
   const scrollToOrder = (e: React.MouseEvent) => {
     e.preventDefault();
     const elem = document.getElementById("order-section");
@@ -23,25 +27,18 @@ export default function TangailExpressHeader({
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-xs">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <div className="max-w-6xl mx-auto px-4 py-2 sm:py-3 flex items-center justify-between gap-3">
         {/* Brand Logo & Name */}
         <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-          <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-sm shadow-emerald-200 group-hover:scale-105 transition-transform">
-            <ShoppingBag className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-base sm:text-lg text-gray-900 leading-tight tracking-tight">
-                Tangail Express
-              </span>
-              <span className="inline-flex items-center px-1.5 py-0.2 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                টাঙ্গাইল
-              </span>
-            </div>
-            <p className="text-[11px] text-gray-500 font-medium leading-none mt-0.5">
-              বাজারের টেনশন মুক্ত ডেলিভারি
-            </p>
-          </div>
+          <Image
+            src={logoUrl}
+            alt={storeName}
+            width={220}
+            height={64}
+            className="h-9 sm:h-12 w-auto object-contain transition-transform group-hover:scale-102"
+            priority
+            unoptimized
+          />
         </Link>
 
         {/* Navigation Links - Desktop */}
@@ -64,10 +61,7 @@ export default function TangailExpressHeader({
           >
             গ্রাহকের মতামত
           </a>
-          <a
-            href="#faq"
-            className="hover:text-emerald-700 transition-colors"
-          >
+          <a href="#faq" className="hover:text-emerald-700 transition-colors">
             সাধারণ প্রশ্ন
           </a>
         </nav>
@@ -77,7 +71,7 @@ export default function TangailExpressHeader({
           {/* WhatsApp Button */}
           <a
             href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(
-              "হ্যালো টাঙ্গাইল এক্সপ্রেস, আমি বাজার অর্ডার করতে চাই।"
+              "হ্যালো টাঙ্গাইল এক্সপ্রেস, আমি বাজার অর্ডার করতে চাই।",
             )}`}
             target="_blank"
             rel="noopener noreferrer"

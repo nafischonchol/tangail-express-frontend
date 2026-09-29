@@ -1,7 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { ShieldCheck, HeartHandshake, Truck, RefreshCw, Send, Phone, Mail, MapPin } from "lucide-react";
+import {
+  ShieldCheck,
+  HeartHandshake,
+  Truck,
+  RefreshCw,
+  Send,
+  Phone,
+  Mail,
+  MapPin,
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useStoreSetup } from "@/context/StoreSetupContext";
@@ -45,19 +54,26 @@ export default function Footer() {
   const { storeSetup } = useStoreSetup();
 
   const storeName = storeSetup?.store_name || "Tangail Express";
-  const logoUrl = storeSetup?.logo || "/logo.jpeg";
+  const logoUrl = storeSetup?.logo || "/logo.png";
   const phone = storeSetup?.phone;
   const emailAddress = storeSetup?.email;
-  const address = [storeSetup?.street_address, storeSetup?.upazila_name, storeSetup?.district_name]
-    .filter(Boolean)
-    .join(", ") || storeSetup?.street_address;
+  const address =
+    [
+      storeSetup?.street_address,
+      storeSetup?.upazila_name,
+      storeSetup?.district_name,
+    ]
+      .filter(Boolean)
+      .join(", ") || storeSetup?.street_address;
 
   const facebookUrl = storeSetup?.facebook;
   const instagramUrl = storeSetup?.instagram;
   const youtubeUrl = storeSetup?.youtube;
   const tiktokUrl = storeSetup?.tiktok;
 
-  const hasAnySocial = Boolean(facebookUrl || instagramUrl || youtubeUrl || tiktokUrl);
+  const hasAnySocial = Boolean(
+    facebookUrl || instagramUrl || youtubeUrl || tiktokUrl,
+  );
   const fb = facebookUrl || (!hasAnySocial ? "https://facebook.com" : null);
   const ig = instagramUrl || (!hasAnySocial ? "https://instagram.com" : null);
   const yt = youtubeUrl || (!hasAnySocial ? "https://youtube.com" : null);
@@ -66,7 +82,9 @@ export default function Footer() {
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail) {
-      alert(`Welcome to the Glow Circle! A 15% discount code has been sent to ${newsletterEmail}`);
+      alert(
+        `Welcome to the Glow Circle! A 15% discount code has been sent to ${newsletterEmail}`,
+      );
       setNewsletterEmail("");
     }
   };
@@ -78,7 +96,9 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="flex flex-col items-center text-center gap-3">
             <ShieldCheck size={28} className="text-[#D062A5]" />
-            <h3 className="text-xs font-bold tracking-widest uppercase text-zinc-100">100% Authentic</h3>
+            <h3 className="text-xs font-bold tracking-widest uppercase text-zinc-100">
+              100% Authentic
+            </h3>
             <p className="text-[10px] text-zinc-400 leading-relaxed font-light max-w-[200px]">
               Directly sourced from trusted brands in South Korea & Japan.
             </p>
@@ -86,7 +106,9 @@ export default function Footer() {
 
           <div className="flex flex-col items-center text-center gap-3">
             <HeartHandshake size={28} className="text-[#D062A5]" />
-            <h3 className="text-xs font-bold tracking-widest uppercase text-zinc-100">Cruelty Free</h3>
+            <h3 className="text-xs font-bold tracking-widest uppercase text-zinc-100">
+              Cruelty Free
+            </h3>
             <p className="text-[10px] text-zinc-400 leading-relaxed font-light max-w-[200px]">
               We prioritize clean formulas that are never tested on animals.
             </p>
@@ -94,7 +116,9 @@ export default function Footer() {
 
           <div className="flex flex-col items-center text-center gap-3">
             <Truck size={28} className="text-[#D062A5]" />
-            <h3 className="text-xs font-bold tracking-widest uppercase text-zinc-100">Express Delivery</h3>
+            <h3 className="text-xs font-bold tracking-widest uppercase text-zinc-100">
+              Express Delivery
+            </h3>
             <p className="text-[10px] text-zinc-400 leading-relaxed font-light max-w-[200px]">
               Carefully packed shipments sent straight to your doorstep.
             </p>
@@ -102,7 +126,9 @@ export default function Footer() {
 
           <div className="flex flex-col items-center text-center gap-3">
             <RefreshCw size={28} className="text-[#D062A5]" />
-            <h3 className="text-xs font-bold tracking-widest uppercase text-zinc-100">Easy Returns</h3>
+            <h3 className="text-xs font-bold tracking-widest uppercase text-zinc-100">
+              Easy Returns
+            </h3>
             <p className="text-[10px] text-zinc-400 leading-relaxed font-light max-w-[200px]">
               Hassle-free 7-day exchange window for undamaged packages.
             </p>
@@ -114,7 +140,10 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 border-b border-zinc-800">
         {/* Brand Column */}
         <div className="lg:col-span-4 flex flex-col gap-5 text-left">
-          <Link href="/" className="inline-block hover:opacity-90 transition-opacity">
+          <Link
+            href="/"
+            className="inline-block hover:opacity-90 transition-opacity"
+          >
             <Image
               src={logoUrl}
               alt={storeName}
@@ -125,7 +154,9 @@ export default function Footer() {
             />
           </Link>
           <p className="text-xs text-zinc-400 leading-relaxed tracking-wider font-light max-w-sm">
-            Experience the art of mindful self-care. {storeName} brings you premium, authentic skincare products carefully curated to deliver the coveted glow.
+            Experience the art of mindful self-care. {storeName} brings you
+            premium, authentic skincare products carefully curated to deliver
+            the coveted glow.
           </p>
 
           {/* Socials */}
@@ -180,20 +211,29 @@ export default function Footer() {
           {(phone || emailAddress || address) && (
             <div className="flex flex-col gap-2.5 pt-3 text-xs text-zinc-400 border-t border-zinc-800/80">
               {phone && (
-                <a href={`tel:${phone}`} className="flex items-center gap-2 hover:text-[#D062A5] transition-colors">
+                <a
+                  href={`tel:${phone}`}
+                  className="flex items-center gap-2 hover:text-[#D062A5] transition-colors"
+                >
                   <Phone size={13} className="text-[#D062A5] shrink-0" />
                   <span>{phone}</span>
                 </a>
               )}
               {emailAddress && (
-                <a href={`mailto:${emailAddress}`} className="flex items-center gap-2 hover:text-[#D062A5] transition-colors">
+                <a
+                  href={`mailto:${emailAddress}`}
+                  className="flex items-center gap-2 hover:text-[#D062A5] transition-colors"
+                >
                   <Mail size={13} className="text-[#D062A5] shrink-0" />
                   <span className="truncate">{emailAddress}</span>
                 </a>
               )}
               {address && (
                 <div className="flex items-start gap-2">
-                  <MapPin size={13} className="text-[#D062A5] shrink-0 mt-0.5" />
+                  <MapPin
+                    size={13}
+                    className="text-[#D062A5] shrink-0 mt-0.5"
+                  />
                   <span className="leading-snug">{address}</span>
                 </div>
               )}
@@ -203,33 +243,107 @@ export default function Footer() {
 
         {/* Curation Links Column */}
         <div className="lg:col-span-2.5 flex flex-col gap-5 text-left">
-          <h4 className="text-xs font-bold tracking-widest uppercase text-zinc-100">Curations</h4>
+          <h4 className="text-xs font-bold tracking-widest uppercase text-zinc-100">
+            Curations
+          </h4>
           <ul className="space-y-3 text-xs text-zinc-400 font-light tracking-wide">
-            <li><Link href="/catalog" prefetch={false} className="hover:text-[#D062A5] transition-colors">Glass Skin Routine</Link></li>
-            <li><Link href="/catalog" prefetch={false} className="hover:text-[#D062A5] transition-colors">Centella Calming Care</Link></li>
-            <li><Link href="/catalog" prefetch={false} className="hover:text-[#D062A5] transition-colors">Vitamin C Brightening</Link></li>
-            <li><Link href="/catalog" prefetch={false} className="hover:text-[#D062A5] transition-colors">Snail Mucin Essentials</Link></li>
+            <li>
+              <Link
+                href="/catalog"
+                prefetch={false}
+                className="hover:text-[#D062A5] transition-colors"
+              >
+                Glass Skin Routine
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/catalog"
+                prefetch={false}
+                className="hover:text-[#D062A5] transition-colors"
+              >
+                Centella Calming Care
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/catalog"
+                prefetch={false}
+                className="hover:text-[#D062A5] transition-colors"
+              >
+                Vitamin C Brightening
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/catalog"
+                prefetch={false}
+                className="hover:text-[#D062A5] transition-colors"
+              >
+                Snail Mucin Essentials
+              </Link>
+            </li>
           </ul>
         </div>
 
         {/* Help Links Column */}
         <div className="lg:col-span-2.5 flex flex-col gap-5 text-left">
-          <h4 className="text-xs font-bold tracking-widest uppercase text-zinc-100">Customer Care</h4>
+          <h4 className="text-xs font-bold tracking-widest uppercase text-zinc-100">
+            Customer Care
+          </h4>
           <ul className="space-y-3 text-xs text-zinc-400 font-light tracking-wide">
-            <li><Link href="/faq" prefetch={false} className="hover:text-[#D062A5] transition-colors">FAQ</Link></li>
-            <li><Link href="/account/orders" prefetch={false} className="hover:text-[#D062A5] transition-colors">Track Orders</Link></li>
-            <li><Link href="/catalog" prefetch={false} className="hover:text-[#D062A5] transition-colors">Browse Products</Link></li>
-            <li><Link href="/account" prefetch={false} className="hover:text-[#D062A5] transition-colors">My Account</Link></li>
+            <li>
+              <Link
+                href="/faq"
+                prefetch={false}
+                className="hover:text-[#D062A5] transition-colors"
+              >
+                FAQ
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/account/orders"
+                prefetch={false}
+                className="hover:text-[#D062A5] transition-colors"
+              >
+                Track Orders
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/catalog"
+                prefetch={false}
+                className="hover:text-[#D062A5] transition-colors"
+              >
+                Browse Products
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/account"
+                prefetch={false}
+                className="hover:text-[#D062A5] transition-colors"
+              >
+                My Account
+              </Link>
+            </li>
           </ul>
         </div>
 
         {/* Newsletter Column */}
         <div className="lg:col-span-3 flex flex-col gap-5 text-left">
-          <h4 className="text-xs font-bold tracking-widest uppercase text-zinc-100">Join the Glow Circle</h4>
+          <h4 className="text-xs font-bold tracking-widest uppercase text-zinc-100">
+            Join the Glow Circle
+          </h4>
           <p className="text-xs text-zinc-400 leading-relaxed font-light">
-            Subscribe to receive editorial curation logs, skincare advice, and special offers.
+            Subscribe to receive editorial curation logs, skincare advice, and
+            special offers.
           </p>
-          <form onSubmit={handleSubscribe} className="relative flex items-center border-b border-zinc-700 focus-within:border-[#D062A5] py-1.5 transition-colors">
+          <form
+            onSubmit={handleSubscribe}
+            className="relative flex items-center border-b border-zinc-700 focus-within:border-[#D062A5] py-1.5 transition-colors"
+          >
             <input
               type="email"
               placeholder="Your email address"
@@ -238,7 +352,11 @@ export default function Footer() {
               required
               className="bg-transparent text-xs text-white placeholder-zinc-500 focus:outline-none w-full pr-10 tracking-wider"
             />
-            <button type="submit" className="absolute right-0 text-[#D062A5] hover:text-white transition-colors cursor-pointer" aria-label="Subscribe">
+            <button
+              type="submit"
+              className="absolute right-0 text-[#D062A5] hover:text-white transition-colors cursor-pointer"
+              aria-label="Subscribe"
+            >
               <Send size={14} />
             </button>
           </form>
@@ -247,8 +365,12 @@ export default function Footer() {
 
       {/* Copyright & Payments */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-6">
-        <span className="text-[10px] text-zinc-500 tracking-wider" suppressHydrationWarning>
-          © {new Date().getFullYear()} {storeName}. Sourced with care. All rights reserved.
+        <span
+          className="text-[10px] text-zinc-500 tracking-wider"
+          suppressHydrationWarning
+        >
+          © {new Date().getFullYear()} {storeName}. Sourced with care. All
+          rights reserved.
         </span>
 
         {/* Payment Partners */}

@@ -11,7 +11,11 @@ import { MobileSidebar } from "@/components/customer/home/MobileSidebar";
 import { HeaderAuth } from "@/components/customer/home/HeaderAuth";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useStoreSetup } from "@/context/StoreSetupContext";
-import { getSearchSuggestions, trackSearchClick, ProductSearchSuggestion } from "@/lib/api/products";
+import {
+  getSearchSuggestions,
+  trackSearchClick,
+  ProductSearchSuggestion,
+} from "@/lib/api/products";
 import { useCustomerAuth } from "@/lib/hooks/useCustomerAuth";
 
 export function CustomerHeader() {
@@ -19,7 +23,9 @@ export function CustomerHeader() {
   const { isLoggedIn } = useCustomerAuth();
   const { storeSetup } = useStoreSetup();
   const [searchInput, setSearchInput] = useState("");
-  const [searchResults, setSearchResults] = useState<ProductSearchSuggestion[]>([]);
+  const [searchResults, setSearchResults] = useState<ProductSearchSuggestion[]>(
+    [],
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
@@ -57,7 +63,10 @@ export function CustomerHeader() {
   // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -87,9 +96,10 @@ export function CustomerHeader() {
     }
   };
 
-  const logoUrl = storeSetup?.logo || "/logo.jpeg";
+  const logoUrl = storeSetup?.logo || "/logo.png";
   const storeName = storeSetup?.store_name || "Tangail Express";
-  const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8001";
+  const apiBase =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8001";
 
   const renderDropdown = () => {
     if (!isOpen) return null;
@@ -120,7 +130,10 @@ export function CustomerHeader() {
                     key={product.id}
                     onMouseDown={(e) => {
                       e.preventDefault();
-                      handleProductClick(product.slug_url || product.slug, product.id);
+                      handleProductClick(
+                        product.slug_url || product.slug,
+                        product.id,
+                      );
                     }}
                     className="flex items-center gap-3.5 p-3 hover:bg-[#FDF2F8]/70 cursor-pointer transition-colors group"
                   >
@@ -145,7 +158,7 @@ export function CustomerHeader() {
                       <h4 className="text-sm font-semibold text-zinc-900 truncate group-hover:text-[#BA478F] transition-colors leading-tight">
                         {product.name}
                       </h4>
-                      
+
                       {/* Row 2: Price & Brand/Category info */}
                       <div className="flex items-center gap-2 mt-1 min-w-0">
                         <div className="flex items-baseline gap-1.5 flex-shrink-0">
@@ -161,7 +174,9 @@ export function CustomerHeader() {
 
                         {brandCategoryText && (
                           <>
-                            <span className="text-zinc-300 text-xs flex-shrink-0">•</span>
+                            <span className="text-zinc-300 text-xs flex-shrink-0">
+                              •
+                            </span>
                             <span className="text-[11px] text-zinc-500 truncate min-w-0">
                               {brandCategoryText}
                             </span>
@@ -197,10 +212,8 @@ export function CustomerHeader() {
       {/* Top Header Section */}
       <div className="border-b border-zinc-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
           {/* Main Row */}
           <div className="flex items-center justify-between h-20 lg:h-24 gap-4 lg:gap-8">
-            
             {/* Mobile Menu & Logo Group */}
             <div className="flex items-center gap-3 lg:gap-0">
               {/* Hamburger & Sidebar Drawer (Mobile Only) */}
@@ -208,24 +221,24 @@ export function CustomerHeader() {
 
               {/* Logo Section */}
               <Link href="/" className="flex items-center flex-shrink-0">
-                  <Image 
-                    src={logoUrl} 
-                    alt={storeName} 
-                    width={280} 
-                    height={80} 
-                    className="object-contain max-h-20 sm:max-h-24 w-auto max-w-[180px] sm:max-w-[220px] lg:max-w-[280px]"
-                    priority
-                    unoptimized
-                  />
+                <Image
+                  src={logoUrl}
+                  alt={storeName}
+                  width={280}
+                  height={80}
+                  className="object-contain max-h-20 sm:max-h-24 w-auto max-w-[180px] sm:max-w-[220px] lg:max-w-[280px]"
+                  priority
+                  unoptimized
+                />
               </Link>
             </div>
 
             {/* Search Bar (Desktop Only) */}
-            <div className="hidden lg:block flex-1 max-w-2xl px-8 relative" ref={searchContainerRef}>
-              <form 
-                onSubmit={handleSearchSubmit}
-                className="relative group"
-              >
+            <div
+              className="hidden lg:block flex-1 max-w-2xl px-8 relative"
+              ref={searchContainerRef}
+            >
+              <form onSubmit={handleSearchSubmit} className="relative group">
                 <input
                   type="text"
                   placeholder="Search Korean skincare, makeup, brands..."
@@ -238,7 +251,10 @@ export function CustomerHeader() {
                   }}
                   className="w-full bg-transparent border-b border-zinc-300 text-zinc-900 px-2 py-2.5 focus:outline-none focus:border-[#BA478F] transition-colors placeholder:text-zinc-400 text-base"
                 />
-                <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 group-hover:text-[#BA478F] transition-colors cursor-pointer">
+                <button
+                  type="submit"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 group-hover:text-[#BA478F] transition-colors cursor-pointer"
+                >
                   <Search size={20} />
                 </button>
               </form>
@@ -249,9 +265,9 @@ export function CustomerHeader() {
             {/* Right Actions */}
             <div className="flex items-center gap-3 sm:gap-4 lg:gap-6 text-[11px] sm:text-xs lg:text-sm font-bold lg:font-medium text-zinc-800 whitespace-nowrap">
               <HeaderAuth />
-              
+
               <ThemeToggle />
-              
+
               <div className="hidden lg:flex items-center gap-1 cursor-pointer hover:text-[#BA478F] transition-colors px-3 py-1.5 border border-zinc-200 rounded-md bg-zinc-50 text-zinc-700 text-xs">
                 <span>ENGLISH</span>
                 <ChevronDown size={14} />
@@ -261,7 +277,7 @@ export function CustomerHeader() {
 
           {/* Search Bar (Mobile Only - shown below main row) */}
           <div className="lg:hidden pb-4 relative" ref={searchContainerRef}>
-            <form 
+            <form
               onSubmit={handleSearchSubmit}
               className="relative group bg-zinc-50 rounded-full border border-zinc-200 px-4 py-2 flex items-center shadow-xs"
             >
@@ -277,14 +293,16 @@ export function CustomerHeader() {
                 }}
                 className="w-full bg-transparent text-zinc-900 text-sm focus:outline-none placeholder:text-zinc-400"
               />
-              <button type="submit" className="text-zinc-400 hover:text-[#BA478F] transition-colors">
+              <button
+                type="submit"
+                className="text-zinc-400 hover:text-[#BA478F] transition-colors"
+              >
                 <Search size={18} />
               </button>
             </form>
 
             {renderDropdown()}
           </div>
-
         </div>
       </div>
 
@@ -295,32 +313,50 @@ export function CustomerHeader() {
             <BrandMegaMenu />
             <CategoryMegaMenu />
             <li>
-              <Link href="/catalog" className="hover:text-[#BA478F] transition-colors px-2.5 py-2">
+              <Link
+                href="/catalog"
+                className="hover:text-[#BA478F] transition-colors px-2.5 py-2"
+              >
                 Products
               </Link>
             </li>
             <li>
-              <Link href="/best-sellings" className="hover:text-[#BA478F] transition-colors px-2.5 py-2">
+              <Link
+                href="/best-sellings"
+                className="hover:text-[#BA478F] transition-colors px-2.5 py-2"
+              >
                 Best Sellers
               </Link>
             </li>
             <li>
-              <Link href="/new-arrivals" className="hover:text-[#BA478F] transition-colors px-2.5 py-2">
+              <Link
+                href="/new-arrivals"
+                className="hover:text-[#BA478F] transition-colors px-2.5 py-2"
+              >
                 New Arrival
               </Link>
             </li>
             <li>
-              <Link href="/how-to-use" className="hover:text-[#BA478F] transition-colors px-2.5 py-2">
+              <Link
+                href="/how-to-use"
+                className="hover:text-[#BA478F] transition-colors px-2.5 py-2"
+              >
                 How to Use
               </Link>
             </li>
             <li>
-              <Link href="/faq" className="hover:text-[#BA478F] transition-colors px-2.5 py-2">
+              <Link
+                href="/faq"
+                className="hover:text-[#BA478F] transition-colors px-2.5 py-2"
+              >
                 FAQ
               </Link>
             </li>
             <li>
-              <Link href="/why-us" className="hover:text-[#BA478F] transition-colors px-2.5 py-2">
+              <Link
+                href="/why-us"
+                className="hover:text-[#BA478F] transition-colors px-2.5 py-2"
+              >
                 Why Mohimaa?
               </Link>
             </li>
@@ -330,4 +366,3 @@ export function CustomerHeader() {
     </header>
   );
 }
-

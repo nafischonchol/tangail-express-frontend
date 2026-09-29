@@ -1,9 +1,7 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
-  ShoppingBag,
   MapPin,
   Phone,
   MessageCircle,
@@ -11,8 +9,13 @@ import {
   ShieldCheck,
   ChevronUp,
 } from "lucide-react";
+import { useStoreSetup } from "@/context/StoreSetupContext";
 
 export default function TangailFooter() {
+  const { storeSetup } = useStoreSetup();
+  const logoUrl = storeSetup?.logo || "/logo.png";
+  const storeName = storeSetup?.store_name || "Tangail Express";
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -25,21 +28,22 @@ export default function TangailFooter() {
           {/* Brand Col */}
           <div className="md:col-span-5 space-y-4">
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-md">
-                <ShoppingBag className="w-5 h-5" />
-              </div>
-              <div>
-                <span className="font-extrabold text-xl text-white tracking-tight">
-                  Tangail Express
-                </span>
-                <span className="block text-xs text-emerald-300 font-medium">
-                  টাঙ্গাইল শহরের ১ নম্বর হোম বাজার সার্ভিস
-                </span>
+              <div className="bg-white px-3 py-1.5 rounded-xl shadow-xs inline-flex items-center">
+                <Image
+                  src={logoUrl}
+                  alt={storeName}
+                  width={180}
+                  height={50}
+                  className="h-9 sm:h-10 w-auto object-contain"
+                  unoptimized
+                />
               </div>
             </Link>
 
             <p className="text-xs text-emerald-200/80 leading-relaxed max-w-sm">
-              অফিস থেকে ফিরে বাজারের ঝামেলা নয়। আপনার প্রয়োজনীয় বাজারের লিস্ট দিন—তাজা শাকসবজি, দেশি মাছ ও ফ্রেশ মাংস দরজায় পৌঁছে দেওয়ার দায়িত্ব আমাদের।
+              অফিস থেকে ফিরে বাজারের ঝামেলা নয়। আপনার প্রয়োজনীয় বাজারের লিস্ট
+              দিন—তাজা শাকসবজি, দেশি মাছ ও ফ্রেশ মাংস দরজায় পৌঁছে দেওয়ার দায়িত্ব
+              আমাদের।
             </p>
 
             <div className="flex items-center gap-2 pt-2">
@@ -108,7 +112,9 @@ export default function TangailFooter() {
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <span>
-                  <strong>টাঙ্গাইল সদর ও পৌরসভা এলাকা:</strong> কলেজ মোড়, ভিক্টোরিয়া রোড, আকুর টাকুর পাড়া, সাবালিয়া, আদালত পাড়া, বিশ্বাস বেতকা, নতুন বাসস্ট্যান্ড ইত্যাদি।
+                  <strong>টাঙ্গাইল সদর ও পৌরসভা এলাকা:</strong> কলেজ মোড়,
+                  ভিক্টোরিয়া রোড, আকুর টাকুর পাড়া, সাবালিয়া, আদালত পাড়া,
+                  বিশ্বাস বেতকা, নতুন বাসস্ট্যান্ড ইত্যাদি।
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -125,7 +131,10 @@ export default function TangailFooter() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-emerald-900/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-emerald-400/80">
-          <p>© {new Date().getFullYear()} Tangail Express (টাঙ্গাইল এক্সপ্রেস). সর্বস্বত্ব সংরক্ষিত।</p>
+          <p>
+            © {new Date().getFullYear()} Tangail Express (টাঙ্গাইল এক্সপ্রেস).
+            সর্বস্বত্ব সংরক্ষিত।
+          </p>
           <button
             type="button"
             onClick={scrollToTop}
