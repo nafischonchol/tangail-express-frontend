@@ -111,6 +111,54 @@ export const DEFAULT_BANGLADESH_DISTRICTS: DistrictOption[] = [
   { id: 64, name: "Sherpur", bn_name: "শেরপুর" },
 ];
 
+const LOCAL_STORAGE_DELIVERY_KEY = "customer_saved_delivery_info";
+const LEGACY_STORAGE_KEY = "tangail_express_customer_info";
+
+const getSavedDeliveryData = () => {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw =
+      localStorage.getItem(LOCAL_STORAGE_DELIVERY_KEY) ||
+      localStorage.getItem(LEGACY_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return {
+      fullName: parsed.fullName || parsed.name || parsed.customerName || "",
+      phone: parsed.phone || "",
+      district: parsed.district || parsed.city || "",
+      fullAddress: parsed.fullAddress || parsed.address || "",
+    };
+  } catch (e) {
+    console.warn("Could not read saved delivery info:", e);
+    return null;
+  }
+};
+
+const saveDeliveryDataToStorage = (info: {
+  fullName: string;
+  phone: string;
+  district?: string;
+  fullAddress: string;
+}) => {
+  if (typeof window === "undefined") return;
+  try {
+    const dataToSave = {
+      fullName: info.fullName.trim(),
+      name: info.fullName.trim(),
+      customerName: info.fullName.trim(),
+      phone: info.phone.trim(),
+      district: (info.district || "").trim(),
+      city: (info.district || "").trim(),
+      fullAddress: info.fullAddress.trim(),
+      address: info.fullAddress.trim(),
+    };
+    localStorage.setItem(LOCAL_STORAGE_DELIVERY_KEY, JSON.stringify(dataToSave));
+    localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(dataToSave));
+  } catch (e) {
+    console.warn("Could not save delivery data to localStorage:", e);
+  }
+};
+
 export default function CheckoutPage() {
   const router = useRouter();
   const { cart, isLoaded, clearCart } = useCart();
@@ -184,7 +232,7 @@ export default function CheckoutPage() {
     }
   };
 
-  // Auto-fill customer profile details & saved addresses when logged in
+  // Auto-fill customer profile details & saved addresses when logged in or from localStorage
   useEffect(() => {
     const autoFillData = async () => {
       const token = typeof window !== "undefined" ? localStorage.getItem("customer_token") : null;
@@ -253,10 +301,46 @@ export default function CheckoutPage() {
           console.warn("Error auto-filling profile data:", err);
         }
       }
+
+      // 4. Fallback: Auto-fill from localStorage if fields are empty
+      const saved = getSavedDeliveryData();
+      if (saved) {
+        setFormData((prev) => ({
+          ...prev,
+          fullName: prev.fullName || saved.fullName || "",
+          phone: prev.phone || saved.phone || "",
+          district: prev.district || saved.district || "",
+          fullAddress: prev.fullAddress || saved.fullAddress || "",
+        }));
+      }
     };
 
     autoFillData();
   }, [customerUser, districts]);
+
+  // Auto-fill when customer clicks or focuses on any delivery input field
+  const handleInputFocus = () => {
+    const saved = getSavedDeliveryData();
+    if (saved) {
+      setFormData((prev) => {
+        const shouldFillName = !prev.fullName.trim() && !!saved.fullName;
+        const shouldFillPhone = !prev.phone.trim() && !!saved.phone;
+        const shouldFillDistrict = !prev.district.trim() && !!saved.district;
+        const shouldFillAddress = !prev.fullAddress.trim() && !!saved.fullAddress;
+
+        if (shouldFillName || shouldFillPhone || shouldFillDistrict || shouldFillAddress) {
+          return {
+            ...prev,
+            fullName: prev.fullName.trim() ? prev.fullName : saved.fullName,
+            phone: prev.phone.trim() ? prev.phone : saved.phone,
+            district: prev.district.trim() ? prev.district : saved.district,
+            fullAddress: prev.fullAddress.trim() ? prev.fullAddress : saved.fullAddress,
+          };
+        }
+        return prev;
+      });
+    }
+  };
 
   const handleSelectSavedAddress = (addr: ClientAddress) => {
     setSelectedAddressId(addr.id);
@@ -348,6 +432,14 @@ export default function CheckoutPage() {
             color: "#f4f4f5",
             border: "1px solid #27272a",
           },
+        });
+
+        // Save latest customer delivery information into localStorage to replace previous data
+        saveDeliveryDataToStorage({
+          fullName: formData.fullName,
+          phone: formData.phone,
+          district: formData.district,
+          fullAddress: formData.fullAddress,
         });
 
         const invoiceNo = res.resources.invoice_no || `Confirmed #${res.resources.order_id || ""}`;
@@ -693,6 +785,8 @@ export default function CheckoutPage() {
                           required
                           value={formData.fullName}
                           onChange={handleInputChange}
+                          onFocus={handleInputFocus}
+                          onClick={handleInputFocus}
                           placeholder="Enter your full name"
                           className="w-full bg-white border border-neutral-300 rounded-lg px-3.5 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-colors"
                         />
@@ -710,6 +804,8 @@ export default function CheckoutPage() {
                           maxLength={11}
                           value={formData.phone}
                           onChange={handleInputChange}
+                          onFocus={handleInputFocus}
+                          onClick={handleInputFocus}
                           placeholder="017XXXXXXXX"
                           className="w-full bg-white border border-neutral-300 rounded-lg px-3.5 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-colors font-mono"
                         />
@@ -724,7 +820,10 @@ export default function CheckoutPage() {
 
                       <button
                         type="button"
-                        onClick={() => setIsDistrictDropdownOpen(!isDistrictDropdownOpen)}
+                        onClick={() => {
+                          handleInputFocus();
+                          setIsDistrictDropdownOpen(!isDistrictDropdownOpen);
+                        }}
                         className="w-full bg-white border border-neutral-300 rounded-lg px-3.5 py-3 text-left flex items-center justify-between text-sm font-medium text-neutral-900 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-colors"
                       >
                         <span className={formData.district ? "text-neutral-900 font-semibold" : "text-neutral-400 font-normal"}>
@@ -797,6 +896,8 @@ export default function CheckoutPage() {
                         rows={2}
                         value={formData.fullAddress}
                         onChange={handleInputChange}
+                        onFocus={handleInputFocus}
+                        onClick={handleInputFocus}
                         placeholder="House #12, Road #4, Sector #10, Mirpur, Dhaka"
                         className="w-full bg-white border border-neutral-300 rounded-lg px-3.5 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-colors resize-none"
                       />

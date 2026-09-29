@@ -80,20 +80,30 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
     }
   }, [initialText]);
 
-  // Load cached customer info from localStorage on mount
-  useEffect(() => {
+  const checkAndAutofillFromStorage = () => {
     try {
-      const savedData = localStorage.getItem(STORAGE_KEY);
+      const savedData =
+        localStorage.getItem(STORAGE_KEY) ||
+        localStorage.getItem("customer_saved_delivery_info");
       if (savedData) {
         const parsed = JSON.parse(savedData);
-        if (parsed.customerName) setCustomerName(parsed.customerName);
-        if (parsed.phone) setPhone(parsed.phone);
-        if (parsed.address) setAddress(parsed.address);
+        const nameVal = parsed.customerName || parsed.fullName || parsed.name || "";
+        const phoneVal = parsed.phone || "";
+        const addrVal = parsed.address || parsed.fullAddress || "";
+
+        if (!customerName && nameVal) setCustomerName(nameVal);
+        if (!phone && phoneVal) setPhone(phoneVal);
+        if (!address && addrVal) setAddress(addrVal);
         setIsSavedUser(true);
       }
     } catch (e) {
       console.warn("Could not read from localStorage", e);
     }
+  };
+
+  // Load cached customer info from localStorage on mount
+  useEffect(() => {
+    checkAndAutofillFromStorage();
   }, []);
 
   // Handle Image Selection
@@ -182,14 +192,16 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
       if (response.success && response.resources) {
         // Save customer details to localStorage for zero-friction future orders
         try {
-          localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify({
-              customerName: customerName.trim(),
-              phone: phone.trim(),
-              address: address.trim(),
-            })
-          );
+          const infoToSave = {
+            customerName: customerName.trim(),
+            fullName: customerName.trim(),
+            name: customerName.trim(),
+            phone: phone.trim(),
+            address: address.trim(),
+            fullAddress: address.trim(),
+          };
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(infoToSave));
+          localStorage.setItem("customer_saved_delivery_info", JSON.stringify(infoToSave));
           setIsSavedUser(true);
         } catch (storageErr) {
           console.warn("Storage save failed", storageErr);
@@ -274,6 +286,8 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
                         required
                         value={customerName}
                         onChange={(e) => setCustomerName(e.target.value)}
+                        onFocus={checkAndAutofillFromStorage}
+                        onClick={checkAndAutofillFromStorage}
                         placeholder="যেমন: মোঃ রফিকুল ইসলাম"
                         className="w-full pl-10 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:bg-white transition-all text-gray-900"
                       />
@@ -294,6 +308,8 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
                         required
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
+                        onFocus={checkAndAutofillFromStorage}
+                        onClick={checkAndAutofillFromStorage}
                         placeholder="017XXXXXXXX"
                         className="w-full pl-10 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:bg-white transition-all text-gray-900 font-mono"
                       />
@@ -315,6 +331,8 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
                       rows={2}
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
+                      onFocus={checkAndAutofillFromStorage}
+                      onClick={checkAndAutofillFromStorage}
                       placeholder="বাসা নং, রোড/মহল্লা, ল্যান্ডমার্ক (যেমন: কলেজ মোড়, ভিক্টোরিয়া রোড)"
                       className="w-full pl-10 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:bg-white transition-all text-gray-900"
                     />
