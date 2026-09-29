@@ -2,20 +2,34 @@ import Script from "next/script";
 import type { SeoSetting } from "@/lib/api/seo";
 
 interface TrackingScriptsProps {
-  seo: SeoSetting | null;
+  seo?: SeoSetting | null;
 }
 
 export default function TrackingScripts({ seo }: TrackingScriptsProps) {
-  if (!seo) return null;
+  const metaPixelId =
+    process.env.NEXT_PUBLIC_META_PIXEL_ID ||
+    process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID ||
+    seo?.meta_pixel_id;
+
+  const googleAnalyticsId =
+    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ||
+    process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ||
+    seo?.google_analytics_id;
+
+  const tiktokPixelId =
+    process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID ||
+    seo?.tiktok_pixel_id;
+
+  if (!metaPixelId && !googleAnalyticsId && !tiktokPixelId) return null;
 
   return (
     <>
       {/* Google Analytics 4 */}
-      {seo.google_analytics_id && (
+      {googleAnalyticsId && (
         <>
           <Script
             strategy="afterInteractive"
-            src={`https://www.googletagmanager.com/gtag/js?id=${seo.google_analytics_id}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
           />
           <Script
             id="google-analytics-init"
@@ -25,7 +39,7 @@ export default function TrackingScripts({ seo }: TrackingScriptsProps) {
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', '${seo.google_analytics_id}', {
+                gtag('config', '${googleAnalyticsId}', {
                   page_path: window.location.pathname,
                 });
               `,
@@ -35,7 +49,7 @@ export default function TrackingScripts({ seo }: TrackingScriptsProps) {
       )}
 
       {/* Meta (Facebook) Pixel */}
-      {seo.meta_pixel_id && (
+      {metaPixelId && (
         <>
           <Script
             id="meta-pixel-init"
@@ -50,7 +64,7 @@ export default function TrackingScripts({ seo }: TrackingScriptsProps) {
                 t.src=v;s=b.getElementsByTagName(e)[0];
                 s.parentNode.insertBefore(t,s)}(window, document,'script',
                 'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '${seo.meta_pixel_id}');
+                fbq('init', '${metaPixelId}');
                 fbq('track', 'PageView');
               `,
             }}
@@ -60,7 +74,7 @@ export default function TrackingScripts({ seo }: TrackingScriptsProps) {
               height="1"
               width="1"
               style={{ display: "none" }}
-              src={`https://www.facebook.com/tr?id=${seo.meta_pixel_id}&ev=PageView&noscript=1`}
+              src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
               alt=""
             />
           </noscript>
@@ -68,7 +82,7 @@ export default function TrackingScripts({ seo }: TrackingScriptsProps) {
       )}
 
       {/* TikTok Pixel */}
-      {seo.tiktok_pixel_id && (
+      {tiktokPixelId && (
         <Script
           id="tiktok-pixel-init"
           strategy="afterInteractive"
@@ -76,10 +90,10 @@ export default function TrackingScripts({ seo }: TrackingScriptsProps) {
             __html: `
               !function (w, d, t) {
                 w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=r+"?sdkid="+e+"&lib="+t;var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)};
-                ttq.load('${seo.tiktok_pixel_id}');
-                ttq.page();
-              }(window, document, 'ttq');
-            `,
+              ttq.load('${tiktokPixelId}');
+              ttq.page();
+            }(window, document, 'ttq');
+          `,
           }}
         />
       )}
