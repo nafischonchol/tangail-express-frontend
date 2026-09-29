@@ -3,9 +3,16 @@ import { AuthInterceptor } from "@/components/auth/AuthInterceptor";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "@/components/theme-provider";
 
-export const metadata = {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "Admin Panel",
   description: "Dynamic Admin Panel with Next.js",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({

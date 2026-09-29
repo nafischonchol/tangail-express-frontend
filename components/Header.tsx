@@ -70,8 +70,8 @@ export default function Header() {
   const wishlistCount = wishlistItems.length;
   const onCartClick = () => setCartOpen(true);
 
-  const storeName = storeSetup?.store_name || "Mohima Premium Beauty";
-  const logoUrl = storeSetup?.logo || "/logo.png";
+  const storeName = storeSetup?.store_name || "Tangail Express";
+  const logoUrl = storeSetup?.logo || "/logo.jpeg";
   const phone = storeSetup?.phone;
   const facebookUrl = storeSetup?.facebook;
   const instagramUrl = storeSetup?.instagram;

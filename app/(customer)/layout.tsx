@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tangailexpress.com";
-const defaultOgImage = `${siteUrl}/logo.png`;
+const defaultOgImage = `${siteUrl}/logo.jpeg`;
 
 export async function generateMetadata(): Promise<Metadata> {
   const [storeRes, seoRes] = await Promise.all([
@@ -45,6 +45,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "অফিস থেকে ফেরার পথে বাজারের টেনশন? বাজারের লিস্ট দিন (লিখে, ছবি দিয়ে বা মুখে বলে), আমরা নিখুঁতভাবে বাজার পৌঁছে দিব আপনার ঘরে।",
     alternates: {
       canonical: siteUrl,
+    },
+    icons: {
+      icon: "/icon.png",
+      shortcut: "/icon.png",
+      apple: "/icon.png",
     },
     robots: {
       index: !seo?.robots_meta_content?.noindex,

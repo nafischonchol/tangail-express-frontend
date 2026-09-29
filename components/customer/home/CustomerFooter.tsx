@@ -15,8 +15,8 @@ const TiktokIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export function CustomerFooter() {
   const { storeSetup } = useStoreSetup();
 
-  const logoUrl = storeSetup?.logo || "/logo.png";
-  const storeName = storeSetup?.store_name || "MOHIMAA";
+  const logoUrl = storeSetup?.logo || "/logo.jpeg";
+  const storeName = storeSetup?.store_name || "Tangail Express";
   const helplinePhone = storeSetup?.phone || "+8801700000000";
   const email = storeSetup?.email || "wholesale@mohimaa.com";
   const address = [storeSetup?.street_address, storeSetup?.upazila_name, storeSetup?.district_name]

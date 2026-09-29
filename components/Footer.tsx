@@ -44,8 +44,8 @@ export default function Footer() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const { storeSetup } = useStoreSetup();
 
-  const storeName = storeSetup?.store_name || "Mohima Premium Beauty";
-  const logoUrl = storeSetup?.logo || "/logo.png";
+  const storeName = storeSetup?.store_name || "Tangail Express";
+  const logoUrl = storeSetup?.logo || "/logo.jpeg";
   const phone = storeSetup?.phone;
   const emailAddress = storeSetup?.email;
   const address = [storeSetup?.street_address, storeSetup?.upazila_name, storeSetup?.district_name]

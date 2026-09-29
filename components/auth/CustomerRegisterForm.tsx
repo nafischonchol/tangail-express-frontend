@@ -131,8 +131,8 @@ export function CustomerRegisterForm() {
       <div className="flex flex-col items-center justify-center mb-6">
         <Link href="/" className="inline-block transition-opacity hover:opacity-90 mb-2">
           <Image
-            src="/logo.png"
-            alt="Mohima"
+            src="/logo.jpeg"
+            alt="Tangail Express"
             width={320}
             height={96}
             className="h-20 sm:h-24 w-auto object-contain"

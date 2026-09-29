@@ -167,7 +167,7 @@ export function AdminSidebar({ isOpen, onClose }: SidebarProps) {
                 <path d="M22 22H2" />
               </svg>
             </div>
-            Mohimaa
+            Tangail Express
           </Link>
           <button 
             onClick={onClose}

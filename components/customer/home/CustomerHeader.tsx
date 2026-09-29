@@ -87,8 +87,8 @@ export function CustomerHeader() {
     }
   };
 
-  const logoUrl = storeSetup?.logo || "/logo.png";
-  const storeName = storeSetup?.store_name || "Mohimaa";
+  const logoUrl = storeSetup?.logo || "/logo.jpeg";
+  const storeName = storeSetup?.store_name || "Tangail Express";
   const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8001";
 
   const renderDropdown = () => {
