@@ -62,7 +62,8 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
   const [successOrder, setSuccessOrder] = useState<TangailOrder | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const cameraInputRef = useRef<HTMLInputElement | null>(null);
+  const galleryInputRef = useRef<HTMLInputElement | null>(null);
 
   // Expose imperative handle so preset packages can inject text
   useImperativeHandle(ref, () => ({
@@ -111,8 +112,11 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
       URL.revokeObjectURL(imagePreviewUrl);
       setImagePreviewUrl(null);
     }
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+    if (cameraInputRef.current) {
+      cameraInputRef.current.value = "";
+    }
+    if (galleryInputRef.current) {
+      galleryInputRef.current.value = "";
     }
   };
 
@@ -420,8 +424,18 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
               {/* Tab 2: Image Upload */}
               {activeTab === "image" && (
                 <div className="animate-in fade-in duration-150">
+                  {/* Camera Input (opens camera directly on mobile) */}
                   <input
-                    ref={fileInputRef}
+                    ref={cameraInputRef}
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    onChange={handleImageChange}
+                    className="hidden"
+                  />
+                  {/* Gallery Input (opens photo gallery/files on mobile & desktop) */}
+                  <input
+                    ref={galleryInputRef}
                     type="file"
                     accept="image/*"
                     onChange={handleImageChange}
@@ -429,26 +443,38 @@ const OrderForm = forwardRef<OrderFormHandle, OrderFormProps>(function OrderForm
                   />
 
                   {!imagePreviewUrl ? (
-                    <div
-                      onClick={() => fileInputRef.current?.click()}
-                      className="text-center py-7 px-4 bg-emerald-50/40 rounded-2xl border-2 border-dashed border-emerald-200 hover:border-emerald-400 transition-colors cursor-pointer"
-                    >
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 mb-2.5 shadow-2xs">
-                        <Camera className="w-6 h-6" />
+                    <div className="py-6 px-4 bg-emerald-50/40 rounded-2xl border-2 border-dashed border-emerald-200">
+                      <div className="text-center mb-4">
+                        <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 mb-2 shadow-2xs">
+                          <Camera className="w-6 h-6" />
+                        </div>
+                        <h4 className="font-bold text-gray-900 text-xs sm:text-sm mb-1">
+                          কাগজে লেখা বাজারের লিস্টের ছবি দিন 📸
+                        </h4>
+                        <p className="text-xs text-gray-500 max-w-xs mx-auto">
+                          সরাসরি ক্যামেরা দিয়ে ছবি তুলুন অথবা গ্যালারি থেকে ছবি সিলেক্ট করুন
+                        </p>
                       </div>
-                      <h4 className="font-bold text-gray-900 text-xs sm:text-sm mb-1">
-                        কাগজে লেখা বাজারের লিস্টের ছবি তুলুন বা আপলোড করুন 📸
-                      </h4>
-                      <p className="text-xs text-gray-500 mb-3 max-w-xs mx-auto">
-                        খাতায় বা প্যাডে লেখা যে কোনো বাজারের তালিকার ছবি নির্বাচন করুন
-                      </p>
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-xl shadow-2xs transition-all pointer-events-none"
-                      >
-                        <ImageIcon className="w-3.5 h-3.5" />
-                        <span>ছবি নির্বাচন করুন</span>
-                      </button>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-sm mx-auto">
+                        <button
+                          type="button"
+                          onClick={() => cameraInputRef.current?.click()}
+                          className="flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-xs rounded-xl shadow-xs transition-all cursor-pointer"
+                        >
+                          <Camera className="w-4 h-4" />
+                          <span>ক্যামেরা দিয়ে ছবি তুলুন</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => galleryInputRef.current?.click()}
+                          className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white hover:bg-emerald-50 active:scale-[0.98] text-emerald-700 border border-emerald-300 font-semibold text-xs rounded-xl shadow-2xs transition-all cursor-pointer"
+                        >
+                          <ImageIcon className="w-4 h-4" />
+                          <span>গ্যালারি থেকে নিন</span>
+                        </button>
+                      </div>
                     </div>
                   ) : (
                     <div className="p-3 bg-emerald-50/70 rounded-2xl border border-emerald-200">
