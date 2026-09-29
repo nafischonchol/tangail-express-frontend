@@ -43,7 +43,7 @@ export async function submitTangailOrder(
         message:
           data?.message ||
           "অর্ডার সম্পন্ন করা সম্ভব হয়নি। দয়া করে আবার চেষ্টা করুন।",
-        errors: data?.errors,
+        errors: data?.error || data?.errors,
       };
     }
 
